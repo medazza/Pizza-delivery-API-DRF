@@ -3,7 +3,8 @@ from .models import Order
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    order_status=serializers.HiddenField(default="PENDING")
+    #order_status=serializers.HiddenField(default="PENDING")
+    order_status = serializers.CharField(default="PENDING")
     size=serializers.CharField(max_length=25)
     quantity=serializers.IntegerField()
     flavour=serializers.CharField(max_length=40)
