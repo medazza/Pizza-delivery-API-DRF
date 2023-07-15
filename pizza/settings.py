@@ -30,12 +30,12 @@ INSTALLED_APPS = [
 
     'authentication.apps.AuthenticationConfig',
     'orders.apps.OrdersConfig',
-
     'phonenumber_field',
 
     #third_party
     'rest_framework',
     'djoser',
+    'drf_yasg',
 ]
 
 AUTH_USER_MODEL='authentication.User'
@@ -51,6 +51,19 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
     "ACCESS_TOKEN_LIFETIME": timedelta(days=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+    #   'Basic': {
+    #         'type': 'basic'
+    #   },
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+   }
 }
 
 MIDDLEWARE = [
