@@ -82,7 +82,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = serializers.OrderSerializer
     # permission_classes = [IsAuthenticatedOrReadOnly]
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(customer=self.request.user)
@@ -109,7 +109,7 @@ class UpdateOrderStatusView(generics.UpdateAPIView):
 
 class UserOrdersView(generics.GenericAPIView):
     serializer_class=serializers.OrderSerializer
-    permission_classes=[IsAuthenticated,IsAdminUser]
+    permission_classes=[IsAuthenticatedOrReadOnly]
 
     @swagger_auto_schema(operation_summary="Get all orders made by a specific user")
     def get(self,request,user_id):
@@ -123,7 +123,7 @@ class UserOrdersView(generics.GenericAPIView):
 
 class UserOrderDetailView(generics.GenericAPIView):
     serializer_class=serializers.OrderSerializer
-    permission_classes=[IsAuthenticated,IsAdminUser]
+    permission_classes=[IsAuthenticated,IsOwnerOrReadOnly]
     
     @swagger_auto_schema(operation_summary="Get the detail of an order made by a specific user")
     def get(self,request,user_id,order_id):

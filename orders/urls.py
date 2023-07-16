@@ -18,6 +18,7 @@ router.register(r'orders', views.OrderViewSet,basename="orders")
 #     'delete': 'destroy'
 # })
 
+
 urlpatterns = [
     # path('orders/',views.OrderView.as_view(),name='orders'),
     # path('order/<int:pk>/',views.OrderIdView.as_view(),name='order'),
@@ -25,6 +26,9 @@ urlpatterns = [
     # path('order/<int:pk>/',order_detail,name='order'),
     path('', include(router.urls)),
     path('order/update-status/<int:pk>/',views.UpdateOrderStatusView.as_view(),name='update_order_status'),
+
     path('user/<int:user_id>/orders/',views.UserOrdersView.as_view(),name='users_orders'),
+    #path('posts_for/<username>/orders/',views.UserOrdersView.as_view(),name='users_orders'),
+
     path('user/<int:user_id>/order/<int:order_id>/',views.UserOrderDetailView.as_view(),name='user_order_detail'),
 ]

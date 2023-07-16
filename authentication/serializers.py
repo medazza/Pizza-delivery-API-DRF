@@ -11,7 +11,6 @@ class UserCreationSerializer(serializers.ModelSerializer):
     phone_number=PhoneNumberField(allow_null=False,allow_blank=False)
     password=serializers.CharField(allow_blank=False,write_only=True)
 
-
     class Meta:
         model=User
         fields=['id','username', 'email', 'phone_number','password']
@@ -31,12 +30,9 @@ class UserCreationSerializer(serializers.ModelSerializer):
         
         return super().validate(attrs)
 
-
     def create(self,validated_data):
         new_user=User(**validated_data)
-
         new_user.password=make_password(validated_data.get('password'))
-
         new_user.save()
-
         return new_user
+    
