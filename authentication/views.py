@@ -10,6 +10,7 @@ from drf_yasg.utils import swagger_auto_schema
 
 from .tokens import create_jwt_pair_for_user
 
+
 class UserCreationView(generics.GenericAPIView):
     serializer_class=serializers.UserCreationSerializer
 
@@ -25,7 +26,8 @@ class UserCreationView(generics.GenericAPIView):
     
 
 class LoginView(APIView):
-    permission_classes = []
+    serializer_class= serializers.LoginSerializer
+    queryset=User.objects.all()
 
     def post(self, request: Request):
         email = request.data.get("email")
@@ -42,3 +44,5 @@ class LoginView(APIView):
         content = {"user": str(request.user), "auth": str(request.auth)}
 
         return Response(data=content, status=status.HTTP_200_OK)
+    
+
